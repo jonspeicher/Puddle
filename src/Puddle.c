@@ -5,8 +5,8 @@
 
 #define MY_UUID { 0xE3, 0x7B, 0xFC, 0xE9, 0x30, 0xD7, 0x4B, 0xC3, 0x96, 0x93, 0x15, 0x0C, 0x35, 0xDC, 0xB8, 0x58 }
 PBL_APP_INFO(MY_UUID,
-             "Template App", "Your Company",
-             1, 0, /* App version */
+             "Puddle", "Jon Speicher",
+             0, 1, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_STANDARD_APP);
 
@@ -15,7 +15,7 @@ Window window;
 
 void handle_init(AppContextRef ctx) {
 
-  window_init(&window, "Window Name");
+  window_init(&window, "Puddle Main");
   window_stack_push(&window, true /* Animated */);
 }
 
