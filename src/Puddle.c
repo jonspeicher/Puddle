@@ -14,6 +14,14 @@ PBL_APP_INFO(MY_UUID,
 Window window;
 TextLayer debug_layer;
 
+void select_single_click_handler(ClickRecognizerRef recognizer, Window *window) {
+  text_layer_set_text(&debug_layer, "Select!");
+}
+
+void click_config_provider(ClickConfig **config, Window *window) {
+  config[BUTTON_ID_SELECT]->click.handler = (ClickHandler) select_single_click_handler;
+}
+
 void handle_init(AppContextRef ctx) {
   window_init(&window, "Puddle Main");
   window_stack_push(&window, true /* Animated */);
@@ -23,6 +31,8 @@ void handle_init(AppContextRef ctx) {
   text_layer_set_text(&debug_layer, "Debug Layer");
   text_layer_set_font(&debug_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
   layer_add_child(&window.layer, &debug_layer.layer);
+
+  window_set_click_config_provider(&window, (ClickConfigProvider) click_config_provider);
 }
 
 
