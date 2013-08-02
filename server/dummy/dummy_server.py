@@ -14,7 +14,12 @@ class JsonPostResponder(RequestHandlerClass):
         print 'command:', self.command
         print 'path:', self.path
         print 'headers:\n\n', self.headers
-        print 'rfile:', self.rfile
+
+        self.send_response(200)
+        self.end_headers()
+        varLen = int(self.headers['Content-Length'])
+        postVars = self.rfile.read(varLen)
+        print postVars
 
 server_address = (SERVER_NAME, SERVER_PORT)
 httpd = BaseHTTPServer.HTTPServer(server_address, JsonPostResponder)
