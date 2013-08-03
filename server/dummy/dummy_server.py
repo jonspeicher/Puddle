@@ -16,11 +16,8 @@ class JsonPostResponder(RequestHandlerClass):
         content_length = int(self.headers['Content-Length'])
         content = self._get_content_from_stream(content_length, self.rfile)
 
-        print '\n---> dummy server: got post!'
-        print 'command:', self.command
-        print 'path:', self.path
-        print 'headers:\n\n', self.headers
-        print 'content:\n\n', content, '\n'
+        print('\n--- %s%s\n%s' % (self.command, self.path, self.headers))
+        print content, '\n'
 
         self.send_response(200)
         self.end_headers()
