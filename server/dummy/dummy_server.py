@@ -26,11 +26,8 @@ class JsonPostResponder(RequestHandlerClass):
         self.end_headers()
         self.wfile.write(content)
 
-    def _transaction_string(self, command, path, headers, content):
-        return '%s %s\n%s%s\n' % (command, path, headers, content)
-
-    def _print_request(self, *request):
-        print('--> %s' % self._transaction_string(*request))
+    def _print_request(self, command, path, headers, content):
+        print('\n%s --> %s\n%s%s\n' % (command, path, headers, content))
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
