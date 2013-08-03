@@ -23,5 +23,5 @@ class JsonPostResponder(RequestHandlerClass):
         self.end_headers()
 
 server_address = (SERVER_NAME, SERVER_PORT)
-httpd = BaseHTTPServer.HTTPServer(server_address, JsonPostResponder)
+httpd = ServerClass(server_address, JsonPostResponder)
 httpd.serve_forever()
