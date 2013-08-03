@@ -21,6 +21,11 @@ class JsonPostResponder(RequestHandlerClass):
             content = content_file.read()
         return content
 
+    def _send_response(self, status, content):
+        self.send_response(status)
+        self.end_headers()
+        self.wfile.write(content)
+
     def _transaction_string(self, command, path, headers, content):
         return '%s %s\n%s%s\n' % (command, path, headers, content)
 
@@ -34,11 +39,8 @@ class JsonPostResponder(RequestHandlerClass):
 
         filename = self._get_requested_filename(self.path)
         content = self._get_content_from_file(filename)
+        self._send_response(200, content)
         print content
-
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(content)
 
 server_address = (SERVER_NAME, SERVER_PORT)
 httpd = ServerClass(server_address, JsonPostResponder)
