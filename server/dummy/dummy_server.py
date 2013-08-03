@@ -29,6 +29,9 @@ class JsonPostResponder(RequestHandlerClass):
     def _print_request(self, command, path, headers, content):
         print('\n%s --> %s\n%s%s\n' % (command, path, headers, content))
 
+    def _print_response(self, status, path, content):
+        print('%s <-- %s\n%s' % (status, path, content))
+
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         content = self._get_content_from_stream(content_length, self.rfile)
@@ -36,8 +39,8 @@ class JsonPostResponder(RequestHandlerClass):
 
         filename = self._get_requested_filename(self.path)
         content = self._get_content_from_file(filename)
+        self._print_response(200, self.path, content)
         self._send_response(200, content)
-        print content
 
 server_address = (SERVER_NAME, SERVER_PORT)
 httpd = ServerClass(server_address, JsonPostResponder)
