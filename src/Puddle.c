@@ -65,8 +65,15 @@ void http_request_failure_handler(int32_t cookie, int http_status, void* context
   text_layer_set_text(&debugLayer, "request Failed!");
 }
 
+static char label[20];
 void http_request_success_handler(int32_t cookie, int http_status, DictionaryIterator* received, void* context) {
-    text_layer_set_text(&debugLayer, "request Success!");
+  Tuple* data_tuple = dict_find(received, 10); // TBD: key in response.json that maps to +int
+  if (data_tuple) {
+    snprintf(label, 20, "%d", data_tuple->value->int16);
+  } else {
+    snprintf(label, 20, "no tuple");
+  }
+  text_layer_set_text(&debugLayer, label);
 }
 
 void handle_init(AppContextRef ctx) {
