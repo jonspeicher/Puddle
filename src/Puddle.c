@@ -62,11 +62,13 @@ void click_config_provider(ClickConfig **config, Window *window) {
 }
 
 void http_request_failure_handler(int32_t cookie, int http_status, void* context) {
+  // TBD: cookie?
   text_layer_set_text(&debugLayer, "request Failed!");
 }
 
 static char label[20];
 void http_request_success_handler(int32_t cookie, int http_status, DictionaryIterator* received, void* context) {
+  // TBD: cookie?
   Tuple* data_tuple = dict_find(received, 10); // TBD: key in response.json that maps to +int
   if (data_tuple) {
     snprintf(label, 20, "%d", data_tuple->value->int16);
