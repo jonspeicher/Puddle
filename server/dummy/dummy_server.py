@@ -8,7 +8,7 @@ RequestHandlerClass = BaseHTTPServer.BaseHTTPRequestHandler
 SERVER_NAME = ''
 SERVER_PORT = 9000
 
-class JsonPostResponder(RequestHandlerClass):
+class PostResponder(RequestHandlerClass):
     def _get_requested_filename(self, path):
         return '.' + path
 
@@ -48,5 +48,5 @@ class JsonPostResponder(RequestHandlerClass):
         self._send_response(status, content)
 
 server_address = (SERVER_NAME, SERVER_PORT)
-httpd = ServerClass(server_address, JsonPostResponder)
+httpd = ServerClass(server_address, PostResponder)
 httpd.serve_forever()
