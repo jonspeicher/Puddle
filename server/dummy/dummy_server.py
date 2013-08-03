@@ -37,10 +37,15 @@ class JsonPostResponder(RequestHandlerClass):
         content = self._get_content_from_stream(content_length, self.rfile)
         self._print_request(self.command, self.path, self.headers, content)
 
-        filename = self._get_requested_filename(self.path)
-        content = self._get_content_from_file(filename)
-        self._print_response(200, self.path, content)
-        self._send_response(200, content)
+        try:
+            status = 200
+            filename = self._get_requested_filename(self.path)
+            content = self._get_content_from_file(filename)
+        except:
+            status = 404
+            content = 'Not found\n'
+        self._print_response(status, self.path, content)
+        self._send_response(status, content)
 
 server_address = (SERVER_NAME, SERVER_PORT)
 httpd = ServerClass(server_address, JsonPostResponder)
