@@ -18,7 +18,7 @@ TextLayer debugLayer;
 
 void select_single_click_handler(ClickRecognizerRef recognizer, Window *window) {
   DictionaryIterator *body;
-  HTTPResult result = http_out_get("http://latrice.local:9000/test.json", DUMMY_COOKIE, &body);
+  HTTPResult result = http_out_get("http://latrice.local:9000/response.json", DUMMY_COOKIE, &body);
 
   switch ((int) result)
   {
