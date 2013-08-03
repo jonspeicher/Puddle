@@ -9,14 +9,17 @@ SERVER_NAME = ''
 SERVER_PORT = 9000
 
 class JsonPostResponder(RequestHandlerClass):
+    def _get_content_from_stream(self, length, stream):
+        return stream.read(length)
+
     def do_POST(self):
+        content_length = int(self.headers['Content-Length'])
+        content = self._get_content_from_stream(content_length, self.rfile)
+
         print '\n---> dummy server: got post!'
         print 'command:', self.command
         print 'path:', self.path
         print 'headers:\n\n', self.headers
-
-        content_length = int(self.headers['Content-Length'])
-        content = self.rfile.read(content_length)
         print 'content:\n\n', content, '\n'
 
         self.send_response(200)
