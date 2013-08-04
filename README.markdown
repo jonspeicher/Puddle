@@ -6,6 +6,5 @@ To clone and hack:
 
     git clone https://github.com/jonspeicher/Puddle.git
     cd Puddle && git submodule init && git submodule update
-    <pebble-sdk-root>/Pebble/tools/create_pebble_project.py --symlink-only <pebble-sdk-root>/Pebble/sdk .
-    ./waf configure
-    ./waf build
+    <pebble-sdk-root>/Pebble/tools/create_pebble_project.py --symlink-only <pebble-sdk-root>/Pebble/sdk watch
+    cd watch && ./waf configure && ./waf build
