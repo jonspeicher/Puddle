@@ -66,15 +66,38 @@ void http_request_failure_handler(int32_t cookie, int http_status, void* context
   text_layer_set_text(&debugLayer, "request Failed!");
 }
 
-static char label[20];
+static char ten[20];
+static char twenty[20];
+static char thirty[20];
+static char label[60];
 void http_request_success_handler(int32_t cookie, int http_status, DictionaryIterator* received, void* context) {
   // TBD: cookie?
   Tuple* data_tuple = dict_find(received, 10); // TBD: key in response.json that maps to +int
   if (data_tuple) {
-    snprintf(label, 20, "%d", data_tuple->value->int16);
+    snprintf(ten, 20, "%d,", data_tuple->value->int16);
   } else {
-    snprintf(label, 20, "no tuple");
+    snprintf(ten, 20, "no tuple,");
   }
+
+  data_tuple = dict_find(received, 20);
+  if (data_tuple) {
+    snprintf(twenty, 20, "%d,", data_tuple->value->int16);
+  } else {
+    snprintf(twenty, 20, "no tuple,");
+  }
+
+  data_tuple = dict_find(received, 30);
+  if (data_tuple) {
+    snprintf(thirty, 20, "%s", data_tuple->value->cstring);
+  } else {
+    snprintf(thirty, 20, "no tuple");
+  }
+
+  label[0] = '\0';
+  strcat(label, ten);
+  strcat(label, twenty);
+  strcat(label, thirty);
+
   text_layer_set_text(&debugLayer, label);
 }
 
@@ -82,7 +105,7 @@ void handle_init(AppContextRef ctx) {
   window_init(&window, "Puddle Main");
   window_stack_push(&window, true /* Animated */);
 
-  text_layer_init(&debugLayer, GRect(0, 65, 144, 30));
+  text_layer_init(&debugLayer, window.layer.frame);
   text_layer_set_text_alignment(&debugLayer, GTextAlignmentCenter);
   text_layer_set_text(&debugLayer, "Debug Layer");
   text_layer_set_font(&debugLayer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
