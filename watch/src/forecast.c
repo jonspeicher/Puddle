@@ -14,15 +14,13 @@ static ForecastCallbacks forecast_callbacks = {
 };
 
 void http_request_success_handler(int32_t cookie, int http_status, DictionaryIterator* received, void* context) {
-  // TBD: cookie?
-  if (forecast_callbacks.success) {
+  if (cookie == FORECAST_COOKIE && forecast_callbacks.success) {
     forecast_callbacks.success(NULL);
   }
 }
 
 void http_request_failure_handler(int32_t cookie, int http_status, void* context) {
-  // TBD: cookie?
-  if (forecast_callbacks.failure) {
+  if ((cookie == FORECAST_COOKIE || cookie == 0) && forecast_callbacks.failure) {
     forecast_callbacks.failure();
   }
 }
