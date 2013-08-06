@@ -89,13 +89,11 @@ void handle_init(AppContextRef ctx) {
 
   window_set_click_config_provider(&window, (ClickConfigProvider) click_config_provider);
 
-  http_set_app_id(54332);
-  http_register_callbacks((HTTPCallbacks) {
-    .failure = http_request_failure_handler,
-    .success = http_request_success_handler
-    },
-    (void*) ctx
-  );
+  HTTPCallbacks callbacks = {
+    .success = http_request_success_handler,
+    .failure = http_request_failure_handler
+  };
+  forecast_register_callbacks(callbacks, (void*) ctx);
 }
 
 

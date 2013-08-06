@@ -8,8 +8,13 @@
 #define FORECAST_URL    "http://latrice.local:9000/response.json"
 #define FORECAST_COOKIE 100
 
-bool forecast_register_callbacks(ForecastCallbacks callbacks) {
-  return true;
+void forecast_register_callbacks(HTTPCallbacks callbacks, void* ctx) {
+  HTTPCallbacks http_callbacks = {
+    .success = callbacks.success,
+    .failure = callbacks.failure
+  };
+  http_set_app_id(54332);
+  http_register_callbacks(http_callbacks, ctx);
 }
 
 bool forecast_request_forecast() {
