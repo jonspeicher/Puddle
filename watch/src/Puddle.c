@@ -37,7 +37,7 @@ void click_config_provider(ClickConfig **config, Window *window) {
   config[BUTTON_ID_UP]->click.handler = (ClickHandler) up_single_click_handler;
 }
 
-void http_request_failure_handler(int32_t cookie, int http_status, void* context) {
+void forecast_request_failure_handler() {
   // TBD: cookie?
   text_layer_set_text(&debugLayer, "request Failed!");
 }
@@ -46,8 +46,9 @@ static char ten[20];
 static char twenty[20];
 static char thirty[20];
 static char label[60];
-void http_request_success_handler(int32_t cookie, int http_status, DictionaryIterator* received, void* context) {
+void forecast_request_success_handler(Forecast* forecast) {
   // TBD: cookie?
+  /*
   Tuple* data_tuple = dict_find(received, 10); // TBD: key in response.json that maps to +int
   if (data_tuple) {
     snprintf(ten, 20, "%d,", data_tuple->value->int16);
@@ -75,6 +76,8 @@ void http_request_success_handler(int32_t cookie, int http_status, DictionaryIte
   strcat(label, thirty);
 
   text_layer_set_text(&debugLayer, label);
+  */
+  text_layer_set_text(&debugLayer, "request Success!");
 }
 
 void handle_init(AppContextRef ctx) {
@@ -89,9 +92,9 @@ void handle_init(AppContextRef ctx) {
 
   window_set_click_config_provider(&window, (ClickConfigProvider) click_config_provider);
 
-  HTTPCallbacks callbacks = {
-    .success = http_request_success_handler,
-    .failure = http_request_failure_handler
+  ForecastCallbacks callbacks = {
+    .success = forecast_request_success_handler,
+    .failure = forecast_request_failure_handler
   };
   forecast_register_callbacks(callbacks, (void*) ctx);
 }

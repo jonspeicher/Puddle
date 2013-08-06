@@ -20,5 +20,5 @@ typedef struct {
 
 // TBD: Make this ForecastCallbacks and do type-unpacking - J. Speicher (8/6/13)
 
-void forecast_register_callbacks(HTTPCallbacks callbacks, void* ctx);
+void forecast_register_callbacks(ForecastCallbacks callbacks, void* ctx);
 bool forecast_request_forecast();
