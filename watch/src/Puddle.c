@@ -15,8 +15,6 @@ PBL_APP_INFO(MY_UUID,
              DEFAULT_MENU_ICON,
              APP_INFO_STANDARD_APP);
 
-#define DUMMY_COOKIE 100
-
 Window window;
 TextLayer debugLayer;
 
@@ -29,7 +27,7 @@ void select_single_click_handler(ClickRecognizerRef recognizer, Window *window) 
 }
 
 void up_single_click_handler(ClickRecognizerRef recognizer, Window *window) {
-  text_layer_set_text(&debugLayer, "Reset!");
+  text_layer_set_text(&debugLayer, "reset");
 }
 
 void click_config_provider(ClickConfig **config, Window *window) {
@@ -38,8 +36,7 @@ void click_config_provider(ClickConfig **config, Window *window) {
 }
 
 void forecast_request_failure_handler() {
-  // TBD: cookie?
-  text_layer_set_text(&debugLayer, "request Failed!");
+  text_layer_set_text(&debugLayer, "response failed");
 }
 
 static char ten[20];
@@ -47,7 +44,6 @@ static char twenty[20];
 static char thirty[20];
 static char label[60];
 void forecast_request_success_handler(Forecast* forecast) {
-  // TBD: cookie?
   /*
   Tuple* data_tuple = dict_find(received, 10); // TBD: key in response.json that maps to +int
   if (data_tuple) {
@@ -77,7 +73,7 @@ void forecast_request_success_handler(Forecast* forecast) {
 
   text_layer_set_text(&debugLayer, label);
   */
-  text_layer_set_text(&debugLayer, "request Success!");
+  text_layer_set_text(&debugLayer, "request success");
 }
 
 void handle_init(AppContextRef ctx) {
@@ -98,7 +94,6 @@ void handle_init(AppContextRef ctx) {
   };
   forecast_register_callbacks(callbacks, (void*) ctx);
 }
-
 
 void pbl_main(void *params) {
   PebbleAppHandlers handlers = {
