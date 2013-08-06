@@ -1,11 +1,13 @@
 // TBD: Screen is 144 px wide x 168 px tall, status bar is 16 px tall
 
-#include "pebble_os.h"
-#include "pebble_app.h"
-#include "pebble_fonts.h"
+#include <pebble_os.h>
+#include <pebble_app.h>
+#include <pebble_fonts.h>
 
+#include "forecast.h"
 #include "http.h"
 
+// TBD: Use define from http.h
 #define MY_UUID { 0x91, 0x41, 0xB6, 0x28, 0xBC, 0x89, 0x49, 0x8E, 0xB1, 0x47, 0x04, 0x9F, 0x49, 0xC0, 0x99, 0xAD }
 PBL_APP_INFO(MY_UUID,
              "Puddle", "Jon Speicher",
@@ -19,37 +21,10 @@ Window window;
 TextLayer debugLayer;
 
 void select_single_click_handler(ClickRecognizerRef recognizer, Window *window) {
-  DictionaryIterator *body;
-  HTTPResult result = http_out_get("http://latrice.local:9000/response.json", DUMMY_COOKIE, &body);
+  bool success = forecast_request_forecast();
 
-  switch ((int) result)
-  {
-    case HTTP_OK:
-      break;
-    case HTTP_BUSY:
-      text_layer_set_text(&debugLayer, "busy");
-      return;
-    case HTTP_INVALID_ARGS:
-      text_layer_set_text(&debugLayer, "invalid args");
-      return;
-    case HTTP_NOT_ENOUGH_STORAGE:
-      text_layer_set_text(&debugLayer, "storage");
-      return;
-    case HTTP_INTERNAL_INCONSISTENCY:
-      text_layer_set_text(&debugLayer, "incons");
-      return;
-    default:
-      text_layer_set_text(&debugLayer, "default");
-      return;
-  }
-
-  dict_write_int32(body, 1, 100);
-  dict_write_int32(body, 2, 200);
-  dict_write_cstring(body, 3, "us");
-
-  if (http_out_send() != HTTP_OK) {
-    text_layer_set_text(&debugLayer, "send Failed!");
-    return;
+  if (!success) {
+    text_layer_set_text(&debugLayer, "request failed");
   }
 }
 
