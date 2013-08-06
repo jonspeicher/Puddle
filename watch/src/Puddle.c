@@ -39,41 +39,13 @@ void forecast_request_failure_handler() {
   text_layer_set_text(&debugLayer, "response failed");
 }
 
-static char ten[20];
-static char twenty[20];
-static char thirty[20];
+// TBD: This is still a mess of course - J. Speicher (8/6/13)
+
 static char label[60];
 void forecast_request_success_handler(Forecast* forecast) {
-  /*
-  Tuple* data_tuple = dict_find(received, 10); // TBD: key in response.json that maps to +int
-  if (data_tuple) {
-    snprintf(ten, 20, "%d,", data_tuple->value->int16);
-  } else {
-    snprintf(ten, 20, "no tuple,");
-  }
-
-  data_tuple = dict_find(received, 20);
-  if (data_tuple) {
-    snprintf(twenty, 20, "%d,", data_tuple->value->int16);
-  } else {
-    snprintf(twenty, 20, "no tuple,");
-  }
-
-  data_tuple = dict_find(received, 30);
-  if (data_tuple) {
-    snprintf(thirty, 20, "%s", data_tuple->value->cstring);
-  } else {
-    snprintf(thirty, 20, "no tuple");
-  }
-
-  label[0] = '\0';
-  strcat(label, ten);
-  strcat(label, twenty);
-  strcat(label, thirty);
-
+  snprintf(label, 60, "%d,%d,%s", forecast->dummy_integer,
+      forecast->another_dummy_integer, forecast->dummy_string);
   text_layer_set_text(&debugLayer, label);
-  */
-  text_layer_set_text(&debugLayer, "request success");
 }
 
 void handle_init(AppContextRef ctx) {

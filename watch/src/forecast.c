@@ -1,3 +1,6 @@
+// TBD: Clean up this file, organize, statics for private functions, long lines,
+// play golf on returns, etcetera - J. Speicher (8/6/13)
+
 #include <pebble_os.h>
 
 #include "forecast.h"
@@ -14,8 +17,35 @@ static ForecastCallbacks forecast_callbacks = {
 };
 
 void http_request_success_handler(int32_t cookie, int http_status, DictionaryIterator* received, void* context) {
+  Forecast forecast = {
+    .dummy_integer = -1,
+    .another_dummy_integer = -1,
+    .dummy_string = ""
+  };
+
+  // TBD: Invert this logic and early-return? - J. Speicher (8/6/13)
+
   if (cookie == FORECAST_COOKIE && forecast_callbacks.success) {
-    forecast_callbacks.success(NULL);
+    Tuple* data_tuple = dict_find(received, 10);
+    if (data_tuple) {
+      forecast.dummy_integer = data_tuple->value->int16;
+    }
+
+    data_tuple = dict_find(received, 20);
+    if (data_tuple) {
+      forecast.another_dummy_integer = data_tuple->value->int16;
+    }
+
+    data_tuple = dict_find(received, 30);
+    if (data_tuple && data_tuple->type == TUPLE_CSTRING) {
+      forecast.dummy_string = data_tuple->value->cstring;
+    }
+
+    // TBD: This probably needs a big comment; check to make sure that received
+    // is also transient to be sure that this pattern is common in the Pebble
+    // world - J. Speicher (8/6/13)
+
+    forecast_callbacks.success(&forecast);
   }
 }
 
