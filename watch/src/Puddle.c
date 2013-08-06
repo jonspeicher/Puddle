@@ -30,7 +30,6 @@ void select_single_click_handler(ClickRecognizerRef recognizer, Window *window) 
 
 void up_single_click_handler(ClickRecognizerRef recognizer, Window *window) {
   text_layer_set_text(&debugLayer, "Reset!");
-  app_message_out_release();
 }
 
 void click_config_provider(ClickConfig **config, Window *window) {
