@@ -1,3 +1,5 @@
+// TBD: Screen is 144 px wide x 168 px tall, status bar is 16 px tall
+
 #include "pebble_os.h"
 #include "pebble_app.h"
 #include "pebble_fonts.h"
