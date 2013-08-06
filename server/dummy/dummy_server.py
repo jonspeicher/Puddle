@@ -2,13 +2,10 @@
 
 import BaseHTTPServer
 
-ServerClass = BaseHTTPServer.HTTPServer
-RequestHandlerClass = BaseHTTPServer.BaseHTTPRequestHandler
-
 SERVER_NAME = ''
 SERVER_PORT = 9000
 
-class PostResponder(RequestHandlerClass):
+class PostResponder(BaseHTTPServer.BaseHTTPRequestHandler):
     def _get_requested_filename(self, path):
         return '.' + path
 
@@ -48,5 +45,5 @@ class PostResponder(RequestHandlerClass):
         self._send_response(status, content)
 
 server_address = (SERVER_NAME, SERVER_PORT)
-httpd = ServerClass(server_address, PostResponder)
-httpd.serve_forever()
+server = BaseHTTPServer.HTTPServer(server_address, PostResponder)
+server.serve_forever()
