@@ -18,7 +18,7 @@ Window window;
 TextLayer debugLayer;
 
 void select_single_click_handler(ClickRecognizerRef recognizer, Window *window) {
-  bool success = forecast_request_forecast();
+  bool success = forecast_bridge_request_forecast();
 
   if (!success) {
     text_layer_set_text(&debugLayer, "request failed");
@@ -63,7 +63,7 @@ void handle_init(AppContextRef ctx) {
     .success = forecast_request_success_handler,
     .failure = forecast_request_failure_handler
   };
-  forecast_register_callbacks(callbacks, (void*) ctx);
+  forecast_bridge_register_callbacks(callbacks, (void*) ctx);
 }
 
 void pbl_main(void *params) {

@@ -55,7 +55,7 @@ void http_request_failure_handler(int32_t cookie, int http_status, void* context
   }
 }
 
-void forecast_register_callbacks(ForecastCallbacks callbacks, void* ctx) {
+void forecast_bridge_register_callbacks(ForecastCallbacks callbacks, void* ctx) {
   forecast_callbacks = callbacks;
   HTTPCallbacks http_callbacks = {
     .success = http_request_success_handler,
@@ -65,7 +65,7 @@ void forecast_register_callbacks(ForecastCallbacks callbacks, void* ctx) {
   http_register_callbacks(http_callbacks, ctx);
 }
 
-bool forecast_request_forecast() {
+bool forecast_bridge_request_forecast() {
   DictionaryIterator* post_dict;
   HTTPResult result = http_out_get(FORECAST_URL, FORECAST_COOKIE, &post_dict);
 

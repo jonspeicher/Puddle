@@ -14,5 +14,5 @@ typedef struct {
   ForecastFailureHandler failure;
 } ForecastCallbacks;
 
-void forecast_register_callbacks(ForecastCallbacks callbacks, void* ctx);
-bool forecast_request_forecast();
+void forecast_bridge_register_callbacks(ForecastCallbacks callbacks, void* ctx);
+bool forecast_bridge_request_forecast();
