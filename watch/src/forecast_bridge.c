@@ -3,7 +3,7 @@
 
 #include <pebble_os.h>
 
-#include "forecast.h"
+#include "forecast_bridge.h"
 #include "http.h"
 
 // TBD: Use the real forecast.io URL - J. Speicher (8/6/13)
