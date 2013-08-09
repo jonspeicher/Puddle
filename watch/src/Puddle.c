@@ -7,9 +7,7 @@
 #include "forecast.h"
 #include "forecast_bridge.h"
 
-// TBD: Use define from http.h
-#define MY_UUID { 0x91, 0x41, 0xB6, 0x28, 0xBC, 0x89, 0x49, 0x8E, 0xB1, 0x47, 0x04, 0x9F, 0x49, 0xC0, 0x99, 0xAD }
-PBL_APP_INFO(MY_UUID,
+PBL_APP_INFO(FORECAST_BRIDGE_APP_UUID,
              "Puddle", "Jon Speicher",
              0, 1, /* App version */
              DEFAULT_MENU_ICON,

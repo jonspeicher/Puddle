@@ -1,5 +1,9 @@
 #pragma once
 
+#include "http.h"
+
+#define FORECAST_BRIDGE_APP_UUID HTTP_UUID
+
 typedef void (*ForecastSuccessHandler)(Forecast* forecast);
 typedef void (*ForecastFailureHandler)();
 
