@@ -4,6 +4,7 @@
 #include <pebble_app.h>
 #include <pebble_fonts.h>
 
+#include "forecast.h"
 #include "forecast_bridge.h"
 
 // TBD: Use define from http.h

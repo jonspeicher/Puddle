@@ -3,6 +3,7 @@
 
 #include <pebble_os.h>
 
+#include "forecast.h"
 #include "forecast_bridge.h"
 #include "http.h"
 
