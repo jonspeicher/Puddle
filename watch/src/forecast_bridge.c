@@ -21,6 +21,7 @@ void http_request_success_handler(int32_t cookie, int http_status, DictionaryIte
   Forecast forecast;
 
   if (cookie == FORECAST_COOKIE && forecast_callbacks.success) {
+    // TBD: Test result here - J. Speicher (8/9/13)
     forecast_from_bridge_dict(received, &forecast);
 
     // TBD: This probably needs a big comment; check to make sure that received
